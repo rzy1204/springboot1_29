@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+    <style>
+        .top{
+            width: 100%;
+            height: 100px;
+            border: 1px solid #cccccc;
+            line-height: 100px;
+            text-align: center;
+        }
+        .middle{
+            width: 100%;
+            height: 450px;
+        }
+        .middle .sidlebar{
+            width: 120px;
+            height: 450px;
+            float: left;
+            border: 1px #cccccc  solid;
+        }
+        .middle .main{
+            width: 100%;
+            height: 450px;
+            border: 1px #cccccc solid;
+        }
+        .footer{
+            width: 100%;
+            height: 80px;
+            border: 1px solid #cccccc;
+            line-height: 80px;
+            text-align: center;
+        }
+        .active{
+            color:red;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="commons::top"></div>
+<div class="middle">
+    <div th:replace="commons::sidlebar(isActive='userlist.html')"></div>
+    <div class="main">
+        <br>
+        <table style="width: 1000px;" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>用户编号id</td>
+                <td>用户名</td>
+                <td>用户密码</td>
+                <td>日期</td>
+                <td>用户住址</td>
+                <td>操作</td>
+            </tr>
+
+            <tr th:each="user:${users}">
+                <td>[[${user.id}]]</td>
+                <td>[[${user.username}]]</td>
+                <td>[[${user.password}]]</td>
+                <td>[[${user.regDate}]]</td>
+                <td>[[${user.address.addressInfo}]]</td>
+                <td>
+                    <a th:href="@{/updateuser.html(id=${user.id})}">修改</a>
+                    <a onclick="return confirm('确定删除吗？')" th:href="@{/deleteuser.html(id=${user.id})}">删除</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+<div th:replace="commons::footer"></div>
+</body>
+</html>

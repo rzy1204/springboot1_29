@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .top{
+            width: 100%;
+            height: 100px;
+            background-color: #cccccc;
+            line-height: 100px;
+            text-align: center;
+        }
+        .middle{
+            width: 100%;
+            height: 720px;
+        }
+        .middle .sidlebar{
+            width: 120px;
+            height: 600px;
+            float: left;
+            border: 1px #cccccc  solid;
+        }
+        .middle .main{
+            width: 100%;
+            height: 600px;
+            border: 1px #cccccc solid;
+        }
+        .footer{
+            width: 100%;
+            height: 100px;
+            background-color: #cccccc;
+            line-height: 100px;
+            text-align: center;
+        }
+        .active{
+            color:red;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="commons::top"></div>
+<div class="middle">
+    <div th:replace="commons::sidlebar(isActive='main.html')"></div>
+    <div class="main">
+        欢迎来到由人dada开发的用户管理系统，<br>
+        这里是main主页面，没有什么素材，这里来一段古诗词吧。<br>
+        《静夜思》<br>
+        李白     <br>
+        床前明月光， <br>
+        疑是地上霜。 <br>
+        举头望明月， <br>
+        低头思故乡。 <br>
+    </div>
+
+</div>
+<div th:replace="commons::footer"></div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+    <style>
+        .top{
+            width: 100%;
+            height: 100px;
+            background-color: #cccccc;
+            line-height: 100px;
+            text-align: center;
+        }
+        .middle{
+            width: 100%;
+            height: 720px;
+        }
+        .middle .sidlebar{
+            width: 120px;
+            height: 600px;
+            float: left;
+            border: 1px #cccccc  solid;
+        }
+        .middle .main{
+            width: 100%;
+            height: 600px;
+            border: 1px #cccccc solid;
+        }
+        .footer{
+            width: 100%;
+            height: 100px;
+            background-color: #cccccc;
+            line-height: 100px;
+            text-align: center;
+        }
+        .active{
+            color:red;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="commons::top"></div>
+<div class="middle">
+    <div th:replace="commons::sidlebar(isActive='userlist.html')"></div>
+    <div class="main">
+
+        <form th:action="@{/searchuser.html}" method="post">
+            模糊查询：<input th:type="text" name="searchByUsername"> <input th:type="submit" value="查询">
+        </form>
+        <br>
+        <a th:href="@{/adduser.html}">添加</a>
+        <br>
+        <table style="width: 1000px;" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>用户编号id</td>
+                <td>用户名</td>
+                <td>用户密码</td>
+                <td>日期</td>
+                <td>用户住址</td>
+                <td>操作</td>
+            </tr>
+
+            <tr th:each="user:${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.regDate}"></td>
+                <td th:text="${user.address.addressInfo}"></td>
+                <td>
+                    <a th:href="@{/updateuser.html(id=${user.id})}">修改</a>
+                    <a onclick="return confirm('确定删除吗？')" th:href="@{/deleteuser.html(id=${user.id})}">删除</a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="modal-footer no-margin-top">
+            <ul class="pagination pull-right no-margin">
+
+                <!-- 首页 -->
+                <li>
+                    <a th:href="'/userlist.html?pageNum=0'">首页</a>
+                </li>
+
+                <!-- 上一页 -->
+                <li th:if="${users.hasPrevious()}">
+                    <a th:href="'/userlist.html?pageNum=' + ${users.previousPageable().getPageNumber()}" th:text="上一页"></a>
+                </li>
+
+                <!-- 中间页 -->
+                <li th:each="pageNum:${#numbers.sequence(0, users.getTotalPages() - 1)}">
+                    <a th:href="'/userlist.html?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne users.pageable.getPageNumber()}"></a>
+                    <a th:href="'/userlist.html?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq users.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+                </li>
+
+                <!-- 下一页 -->
+                <li th:if="${users.hasNext()}">
+                    <a th:href="'/userlist.html?pageNum=' + ${users.nextPageable().getPageNumber()}" th:text="下一页"></a>
+                </li>
+
+                <!-- 尾页 -->
+                <li>
+                    <a th:href="'/userlist.html?pageNum=' + ${users.getTotalPages() - 1}">尾页</a>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </div>
+
+</div>
+<div th:replace="commons::footer"></div>
+</body>
+</html>

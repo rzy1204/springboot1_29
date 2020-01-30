@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .kuangkuang{
+            height: 30px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body style="background-color: #353f42;">
+    <div align="center" width="1000px"; style="position: relative;top: 200px;">
+        <h1>添加页面</h1>
+        <form th:action="@{/add.html}" method="post">
+                用户名：<input type="text" name="username" class="kuangkuang"><br><br>
+                用户密码：<input type="text" name="password" class="kuangkuang"><br><br>
+                选择用户地址：<select name="address.id">
+                                <option th:value="${address.id}" th:each="address:${addresses}">[[${address.addressInfo}]]
+                                </option>
+                            </select>
+            <br>
+            <br>
+            <input type="submit" value="添加">
+        </form>
+    </div>
+</body>
+</html>

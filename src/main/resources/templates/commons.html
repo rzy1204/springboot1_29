@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"></link>
+</head>
+<body>
+<div class="top" th:fragment="top">
+    <p class="top1">欢迎来到用户管理系统</p>
+</div>
+
+<div class="footer" th:fragment="footer">
+    <p class="footer1">版权所有 归于@2019、12-2020、1 人大大 人大大制作</p>
+</div>
+
+<div class="sidlebar" th:fragment="sidlebar">
+    <br>
+    <a href="#" th:class="${isActive == 'main.html'?'active':''}" th:href="@{main.html}">main主页面</a><br><br>
+    <a href="" th:class="${isActive =='userlist.html'?'active':''}" th:href="@{userlist.html}">用户列表</a><br><br>
+    <a href="" th:class="${isActive =='logout.html'?'active':''}" th:href="@{logout.html}">退出</a><br><br>
+</div>
+</body>
+</html>
